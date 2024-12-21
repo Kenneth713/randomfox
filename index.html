@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fox Images</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: #363636;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            background-color: #3273dc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #2759a7;
+            transform: scale(1.05);
+        }
+
+        #image-container {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        img {
+            margin-top: 20px;
+            width: 300px; 
+            height: 300px; 
+            object-fit: cover; 
+            border: 3px solid #ddd;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Generating</h1>
+    <div id="image-container">
+        <img id="random-image" src="" alt="Random Fox" style="display: none;">
+    </div>
+    <button id="generate-btn">Click me</button>
+
+    <script>
+        function myFunction() {
+            fetch("https://randomfox.ca/floof/")
+                .then((response) => response.json())
+                .then((data) => {
+                    const img = document.getElementById('random-image');
+                    img.src = data.image; 
+                    img.style.display = 'block';
+                })
+                .catch((error) => {
+                    console.error('Error fetching the image:', error);
+                });
+        }
+
+        document.getElementById('generate-btn').addEventListener('click', () => {
+            myFunction();
+        });
+    </script>
+    <div class="footer">by: Kenneth John Minguito</div>
+    <script src="sw.js"></script>
+</body>
+</html>
